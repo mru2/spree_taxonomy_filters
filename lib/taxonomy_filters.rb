@@ -19,6 +19,9 @@ module TaxonomyFilters
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
         Rails.env.production? ? require(c) : load(c)
       end
+      
+      # Activate the new searcher (with filters support)
+      Spree::Config.searcher=Spree::Search::TaxonomyFilter
     end
 
     config.to_prepare &method(:activate).to_proc
