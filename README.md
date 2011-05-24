@@ -7,6 +7,7 @@ Usage
 =======
 
 Add the gem to your Gemfile
+
     gem 'taxonomy_filters', :git => 'git@github.com:MrRuru/spree_taxonomy_filters.git'
     
 
