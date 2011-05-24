@@ -1,13 +1,13 @@
 TaxonomyFilters
 ===============
 
-Introduction goes here.
+This extension for spree adds a filter-like behavior to the taxonomy links on the product page and search results page
 
-
-Example
+Usage
 =======
 
-Example goes here.
+Add the gem to your Gemfile
+    gem 'taxonomy_filters', :git => 'git@github.com:MrRuru/spree_taxonomy_filters.git'
+    
 
-
-Copyright (c) 2011 [name of extension creator], released under the New BSD License
+Copyright (c) 2011 David Ruyer, released under the New BSD License
