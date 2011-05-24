@@ -10,6 +10,5 @@ ProductsController.class_eval do
   def get_filtered_products
     @filtered_products = apply_scopes(Product).all
   end
-  
-  
+    
 end

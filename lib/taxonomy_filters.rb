@@ -1,6 +1,7 @@
 require 'spree_core'
 require 'has_scope'
 require 'taxonomy_filters_hooks'
+require 'taxonomy_filters/taxonomy_filters_search'
 
 module TaxonomyFilters
   class Engine < Rails::Engine
@@ -21,7 +22,7 @@ module TaxonomyFilters
       end
       
       # Activate the new searcher (with filters support)
-      Spree::Config.searcher=Spree::Search::TaxonomyFilter
+      Spree::Config.searcher_class=Spree::Search::TaxonomyFilter
     end
 
     config.to_prepare &method(:activate).to_proc
