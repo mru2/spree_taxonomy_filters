@@ -5,28 +5,33 @@ module Spree::Search
     
     def initialize(params)
       super
-      # Add the filters to the searcher properties
-      @properties[:filters] = find_filters(params)
+      # Add the scopes to the searcher properties
+      @properties[:scopes] = find_scopes(params)
     end
 
-    # Apply the filters
+    # Apply the scopes
     def get_base_scope
+
+      # Get the base scopes
       base_scope = super
-      # Each pair has the scope name as a key, and the scope argument as a value
-      @properties[:filters].each_pair do |k,v|
-        base_scope = base_scope.send(k,v)
+      # Add the scopes who were in the params
+      @properties[:scopes].each_pair do |scope_name,scope_value|
+        base_scope = base_scope.send(scope_name,scope_value)
       end
       base_scope
     end
     
     private
     
-    def find_filters(params)
+    # Find the scopes in the params
+    def find_scopes(params)
       scopes = {}
-      # Iterate through the params ; find the one whose key begins with 'by_' and is a Product method
-      params.each_pair do |k,v|
-        if (k[0,3] == "by_") && (Product.respond_to? k)
-          scopes[k] = v
+      # Iterate through the params ; find the ones who are scopes (i.e : Product respond to it, and the result is an ActiveRecord::Relation)
+      params.each_pair do |scope_name,scope_value|
+        if (Product.respond_to? scope_name)
+          if (Product.where('0').send(scope_name,scope_value).class == ActiveRecord::Relation)
+            scopes[scope_name] = scope_value
+          end
         end
       end
       scopes
