@@ -1,24 +1,5 @@
 <div id="taxonomies" class="sidebar-item">
   <% get_taxonomies.each do |taxonomy| %>
-    <ul class="navigation-list">
-      <li<%== ' class="current"' if @taxon && @taxon == taxonomy.root %>>
-        <%#= link_to t("shop_by_taxonomy", :taxonomy => taxonomy.name.singularize), seo_url(taxonomy.root),
-                                          :class => 'root' %>
-        <a class="root"><%= t("shop_by_taxonomy", :taxonomy => taxonomy.name.singularize) %></a>
-      </li>
-
-      <% taxonomy.root.children.each do |taxon| %>
-        <% if params[taxonomy.filter_name] == taxon.name %>
-          <li class="current">
-            <%= link_to taxon.name, (params.merge({taxonomy.filter_name => nil})) %>
-          </li>        
-        <% else %>
-          <li>
-            <%= link_to taxon.name, (params.merge({taxonomy.filter_name => taxon.name})) %>
-          </li>
-        <% end %>
-	    <% end %>
-
-	  </ul>
+    <%= render :partial => 'shared/taxonomy_filter', :locals => {:taxonomy => taxonomy } %>
   <% end %>
 </div>
